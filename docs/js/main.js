@@ -1,13 +1,12 @@
+
+import gsap from "gsap"
+import ScrollTrigger from "gsap/ScrollTrigger.js"
+
 gsap.registerPlugin(ScrollTrigger)
 function init() {
     const panels = document.querySelectorAll('.panel')
 
 console.log('doin animations')
-// const panels = gsap.utils.toArray(".panel")
-// panels.forEach(( panel, index ) => {
-//     let p = panel.querySelector("p")
-//     console.log(p)
-// })
 
     panels.forEach( panel => {
         let tl = gsap.timeline({
@@ -18,28 +17,11 @@ console.log('doin animations')
             markers:false,
             scrub: true
         }})
-        tl.fromTo(panel, {
-            opacity: 0      
-            },
-            {
-                opacity: 1      
-                })
+        tl.fromTo(panel, { opacity: 0 },
+            { opacity: 1 })
     })
-/*
-// create an animation for each heading
-let animation = gsap.from(panel?, { opacity: 0, stagger: 0.1})
-ScrollTrigger.create ({
-    trigger: panel,
-    start: 'top 30%',
-    toggleActions: "play none none reverse",
-    animation: animation,
-    markers: true,
-    scrub: true
-})
-*/
 
-
-    timeline = gsap.timeline()
+    let timeline = gsap.timeline()
 
     timeline
         .from('body', {
@@ -73,17 +55,6 @@ ScrollTrigger.create ({
             markers: false
         }
     })
-    // gsap.fromTo('#panel', {
-    //     opacity: 0 }, 
-    //     { opacity: 1, scrollTrigger: {
-    //         trigger: '#panel',
-    //         start: 'top 10%',
-    //         end: 'bottom 50%',
-    //         scrub: true,
-    //         markers: true
-    //     }
-    // })
-
 }
 
 window.addEventListener('load', function () {
