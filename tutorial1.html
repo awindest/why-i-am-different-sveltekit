@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 1</title>
+
+    <style>
+        body {
+            text-align: center;
+            padding: 20px;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        header,
+        footer {
+            padding: 100px 0;
+        }
+
+        .wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        section {
+            background-color: lightblue;
+            min-height: 200px;
+            margin-bottom: 30px;
+            visibility: hidden;
+            transition: background-color 0.3s linear;
+        }
+
+        section.is-active {
+            background-color: lightpink;
+        }
+
+        .scrollTriggerLogo {
+            background-color: #202020;
+            padding: 140px;
+            display: inline-block;
+            border-radius: 20px;
+        }
+
+        .scrollTriggerLogo img {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="scrollTriggerLogo">
+
+            </div>
+            <h1>ScrollTrigger Tutorial for Beginners and a whole lot more</h1>
+            <div class="scrollTriggerLogo"></div>
+            <p>testing</p>
+        </header>
+        <article>
+            <section>1</section>
+            <section>2</section>
+            <section>3</section>
+            <section>4</section>
+            <section>5</section>
+            <section>6</section>
+            <section>7</section>
+        </article>
+        <footer>
+            Footer
+        </footer>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script>
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Part 1
+    gsap.to('header', {
+        autoAlpha: 0,
+        scrollTrigger: {
+            id: 'header',
+            trigger: '.scrollTriggerLogo',
+            start: 'top top+=100',
+            end: '+=200',
+            scrub: true,
+            // markers: true
+        }
+    });
+
+    // Part 2
+    const sections = document.querySelectorAll('section');
+
+    sections.forEach((section, index) => {
+        gsap.to(section, {
+            autoAlpha: 1,
+            scrollTrigger: {
+                trigger: section,
+                start: 'top bottom-=200',
+                toggleActions: 'play none none reverse',
+                markers: true
+            }
+        });
+
+        ScrollTrigger.create({
+            trigger: section,
+            id: index + 1,
+            start: 'top center',
+            end: () => `+=${section.clientHeight + 30}`,
+            toggleActions: 'play reverse none reverse',
+            toggleClass: { targets: section, className: "is-active" },
+            markers: true
+        })
+
+    })
+
+    Resources
+</script>
+
+</html>
